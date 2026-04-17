@@ -1,24 +1,25 @@
-const url = "https://tinkr.tech/sdb/poly/wander"
-
-document.getElementById('Saada')
-addEventListener("click", function(){
-
-});
+const url = "https://tinkr.tech/sdb/keirwander/wander"
 
 
-
-async function talk(talk) {
-    const messageData = {talk };
-        
-     const response = await fetch('https://tinkr.tech/sdb/poly/wander', {
+async function join(username) {
+    const response = await fetch(url, {
         method: 'POST',
-         headers: {
-         'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(messageData)
-        });
-        
-     const result = await response.json();
-    console.log(result);
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'join', username })
+    });
+    const result = await response.json();
+    if (result.ok) {
+        playerKey = result.player_key;
+        console.log('Joined as', username);
+    } else {
+        console.error('Join failed:', result);
     }
+}
+
+document.getElementById('joinBtn').addEventListener('click', function() {
+    const username = document.getElementById('usernameInput').value;
+    if (username) {
+        join(username);
+    }
+});
 
