@@ -1,4 +1,8 @@
 const url = "https://tinkr.tech/sdb/keirwander/wander"
+let playerKey = localStorage.getItem("playerKey");
+let myUsername = localStorage.getItem("myUsername");
+const deleteBtn = document.getElementById("kustuta");
+
 
 
 async function join(username) {
@@ -7,16 +11,20 @@ async function join(username) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'join', username })
     });
+
     const result = await response.json();
     if (result.ok) {
         playerKey = result.player_key;
-        console.log('Joined as', username);
+        localStorage.setItem("playerKey", playerKey);
+        console.log("Joined as", username);
+        console.log(playerKey);
     } else {
         console.error('Join failed:', result);
     }
 }
 
-document.getElementById('joinBtn').addEventListener('click', function() {
+
+document.getElementById('joinBtn').addEventListener('click', function () {
     const username = document.getElementById('usernameInput').value;
     if (username) {
         join(username);
