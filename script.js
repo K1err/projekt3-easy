@@ -31,3 +31,24 @@ document.getElementById('joinBtn').addEventListener('click', function () {
     }
 });
 
+
+async function post(data) {
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    return res.json();
+}
+
+document.getElementById('joinBtn').addEventListener('click', async function() {
+    const username = document.getElementById('usernameInput').value;
+    if (username) {
+        const result = await post({ action: 'join', username });
+        if (result.ok) { playerKey = result.player_key; localStorage.setItem("playerKey", playerKey); }
+    }
+});
+
+document.getElementById('sendBtn').addEventListener('click', async function() {
+    const message = document.getElementById('messageInput').value;
+    if (message && playerKey) {
+        await post({ action: 'talk', player_key: playerKey, message });
+        document.getElementById('messageInput').value = '';
+    }
+});
