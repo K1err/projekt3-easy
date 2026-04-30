@@ -53,3 +53,18 @@ body {
   border-style: solid;
   border-color: white;
 }
+
+#kustuta {
+  height: 26px;
+  width: 90px;
+}
+
+#sendBtn {
+  height: 26px;
+  width: 90px;
+}
+
+#joinBtn {
+  height: 26px;
+  width: 90px;
+}
